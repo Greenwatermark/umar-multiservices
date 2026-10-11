@@ -1,0 +1,621 @@
+<!doctype html>
+<html lang="mr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4A2F8F">
+<meta name="description" content="Umar Multiservices — पॅन कार्ड, दाखले आणि सरकारी योजनांचे ऑनलाइन अर्ज. WhatsApp वर विनंती पाठवा.">
+<title>Umar Multiservices</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%234A2F8F'/%3E%3Ccircle cx='32' cy='32' r='22' fill='none' stroke='white' stroke-width='3'/%3E%3Ctext x='32' y='38' font-family='Arial' font-weight='700' font-size='16' fill='white' text-anchor='middle'%3EUM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Tiro+Devanagari+Marathi&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F5F8; --sheet:#FFFFFF; --ink:#1E1B2E; --muted:#625D74; --rule:#DFDDE8;
+  --stamp:#4A2F8F; --stamp-wash:#ECE7F6; --on-stamp:#FFFFFF;
+  --wa:#1E8A4C; --on-wa:#FFFFFF; --err:#B3261E;
+  --serif:"Tiro Devanagari Marathi","Tiro Devanagari Hindi","Noto Serif Devanagari",Georgia,serif;
+  --sans:"Mukta",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html[lang="hi"]{--serif:"Tiro Devanagari Hindi","Tiro Devanagari Marathi","Noto Serif Devanagari",Georgia,serif}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#15131D; --sheet:#1E1B29; --ink:#EDEAF5; --muted:#A8A2BC; --rule:#322E42;
+    --stamp:#B8A3F2; --stamp-wash:#2A2440; --on-stamp:#15131D;
+    --wa:#3DBE72; --on-wa:#0E1A12; --err:#F2B8B5;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#15131D; --sheet:#1E1B29; --ink:#EDEAF5; --muted:#A8A2BC; --rule:#322E42;
+  --stamp:#B8A3F2; --stamp-wash:#2A2440; --on-stamp:#15131D;
+  --wa:#3DBE72; --on-wa:#0E1A12; --err:#F2B8B5;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.55}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--stamp);outline-offset:3px;border-radius:8px}
+svg{display:block}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+
+/* top bar */
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:16px}
+.logo-mark{width:38px;height:38px;flex:none;color:var(--stamp)}
+.langs{display:flex;border:1.5px solid var(--rule);border-radius:999px;padding:3px;background:var(--sheet)}
+.langs button{border:0;background:none;padding:5px 14px;border-radius:999px;font-weight:600;font-size:15px;color:var(--muted)}
+.langs button[aria-pressed="true"]{background:var(--stamp);color:var(--on-stamp)}
+
+/* hero */
+.hero{padding:26px 0 8px;display:grid;gap:26px}
+h1{font-family:var(--serif);font-weight:400;font-size:clamp(38px,10vw,60px);line-height:1.18;margin:0;letter-spacing:-.01em;max-width:13ch}
+.lede{color:var(--muted);font-size:18px;margin:14px 0 0;max-width:36ch}
+.voice{display:flex;align-items:center;gap:20px}
+.stampmic{flex:none;width:150px;height:150px;border:0;padding:0;border-radius:50%;background:transparent;color:var(--stamp);position:relative;
+  transform:rotate(-8deg);transition:transform .12s ease;animation:press .7s cubic-bezier(.25,1.5,.5,1) .25s both}
+.stampmic:active{transform:rotate(-8deg) scale(.94)}
+.stampmic svg{width:100%;height:100%}
+.stampmic .disc{fill:var(--stamp-wash)}
+.stampmic .ring{transform-origin:100px 100px}
+.stampmic.listening .ring{animation:spin 6s linear infinite}
+.stampmic.listening::after{content:"";position:absolute;inset:0;border-radius:50%;animation:ripple 1.2s ease-out infinite}
+@keyframes press{0%{transform:rotate(-8deg) scale(1.35);opacity:0}100%{transform:rotate(-8deg) scale(1);opacity:1}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes ripple{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--stamp) 45%,transparent)}100%{box-shadow:0 0 0 22px transparent}}
+.voice-copy b{display:block;font-size:19px;font-weight:600;line-height:1.35}
+.voice-copy span{display:block;color:var(--muted);font-size:15px;margin-top:4px}
+.listen{margin-top:12px;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--rule);background:var(--sheet);border-radius:999px;padding:6px 14px 6px 10px;font-weight:600;font-size:15px;color:var(--stamp)}
+.listen svg{width:18px;height:18px}
+.status{min-height:26px;color:var(--muted);font-size:15px;margin-top:4px}
+.status button{border:0;background:none;color:var(--stamp);font-weight:600;padding:0;margin-left:6px;text-decoration:underline;text-underline-offset:3px}
+@media (min-width:760px){
+  .hero{grid-template-columns:1fr auto;align-items:center;padding-top:44px}
+  .voice{flex-direction:column;text-align:center;max-width:230px}
+  .stampmic{width:190px;height:190px}
+}
+@media (prefers-reduced-motion:reduce){
+  .stampmic,.stampmic.listening .ring,.stampmic.listening::after{animation:none}
+}
+
+/* search + chips */
+.finder{position:sticky;top:0;z-index:4;background:var(--paper);padding:14px 0 10px;margin-top:10px;top:env(safe-area-inset-top,0px)}
+.search{position:relative}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--muted);pointer-events:none}
+.search input{width:100%;padding:13px 16px 13px 44px;font:inherit;font-size:17px;border:1.5px solid var(--rule);border-radius:14px;background:var(--sheet);color:var(--ink);-webkit-appearance:none}
+.search input:focus{border-color:var(--stamp);outline:none}
+.chips{display:flex;gap:8px;overflow-x:auto;margin-top:10px;padding-bottom:2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips button{flex:none;border:1.5px solid var(--rule);background:var(--sheet);border-radius:999px;padding:6px 14px;font-size:15px;font-weight:500;color:var(--ink)}
+.chips button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+
+/* services */
+.list{margin-top:6px;border-top:1px solid var(--rule)}
+.svc{border-bottom:1px solid var(--rule);transition:background .5s}
+.svc.flash{background:var(--stamp-wash)}
+.svc-head{width:100%;display:grid;grid-template-columns:44px 1fr auto;align-items:center;gap:14px;background:none;border:0;padding:16px 4px;text-align:left}
+.tile{width:44px;height:44px;border-radius:12px;background:var(--stamp-wash);color:var(--stamp);display:grid;place-items:center}
+.tile svg{width:24px;height:24px}
+.svc-name{display:block;font-family:var(--serif);font-size:20px;line-height:1.35}
+.svc-cat{display:block;color:var(--muted);font-size:14px}
+.fee{font-weight:700;font-size:17px;color:var(--stamp);white-space:nowrap;text-align:right}
+.fee small{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+.svc-body{display:none;padding:0 4px 20px 62px}
+.svc.open .svc-body{display:block;animation:unfold .22s ease}
+@keyframes unfold{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.svc.open .chev{transform:rotate(180deg)}
+.meta{color:var(--muted);font-size:15px;margin:0 0 10px}
+.docs{list-style:none;margin:0 0 16px;padding:14px 16px;background:var(--sheet);border:1px solid var(--rule);border-radius:12px}
+.docs p{margin:0 0 6px;font-weight:600;font-size:15px}
+.docs li{display:flex;gap:10px;align-items:flex-start;padding:4px 0}
+.docs li svg{flex:none;width:18px;height:18px;margin-top:4px;color:var(--wa)}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:12px;padding:12px 18px;font-weight:600;font-size:16px;background:var(--stamp);color:var(--on-stamp)}
+.btn svg{width:18px;height:18px}
+.btn.soft{background:var(--stamp-wash);color:var(--stamp)}
+.btn.wa{background:var(--wa);color:var(--on-wa)}
+.empty{padding:22px 4px;color:var(--muted)}
+.empty .btn{margin-top:12px}
+@media (max-width:420px){.svc-body{padding-left:4px}}
+
+/* steps */
+.section-title{font-family:var(--serif);font-weight:400;font-size:28px;margin:48px 0 14px;line-height:1.3}
+.steps{list-style:none;margin:0;padding:0;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding:0 0 22px 52px}
+.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:34px;height:34px;border-radius:50%;border:2px solid var(--stamp);color:var(--stamp);display:grid;place-items:center;font-weight:700;background:var(--paper)}
+.steps li:not(:last-child)::after{content:"";position:absolute;left:17px;top:36px;bottom:2px;border-left:2px dashed var(--rule)}
+.steps b{display:block;font-weight:600;font-size:18px}
+.steps span{color:var(--muted);font-size:15px}
+
+footer{margin-top:36px;padding:22px 0 40px;border-top:1px solid var(--rule);color:var(--muted);font-size:14px}
+footer b{color:var(--ink)}
+footer .contact{margin-top:10px;color:var(--ink);font-weight:600}
+
+/* dock (mobile) */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:6;display:flex;gap:10px;padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));
+  background:color-mix(in srgb,var(--sheet) 94%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:1px solid var(--rule);
+  transform:translateY(110%);transition:transform .25s ease}
+.dock.show{transform:none}
+.dock .btn{flex:1;padding:13px 10px;white-space:nowrap;font-size:15px;gap:6px}
+.dock .btn.listening{animation:ripple 1.2s ease-out infinite}
+.spacer{height:90px}
+@media (min-width:760px){.dock{display:none}.spacer{height:0}}
+
+/* sheet */
+.overlay{position:fixed;inset:0;background:rgba(20,16,35,.5);display:none;align-items:flex-end;justify-content:center;z-index:10}
+.overlay.show{display:flex}
+.sheet{background:var(--sheet);width:100%;max-width:560px;border-radius:20px 20px 0 0;padding:22px 20px;padding-bottom:calc(22px + env(safe-area-inset-bottom,0px));max-height:92%;overflow:auto;animation:up .25s ease}
+@keyframes up{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+@media (min-width:600px){.overlay{align-items:center}.sheet{border-radius:20px}}
+.sheet h3{font-family:var(--serif);font-weight:400;font-size:26px;margin:0;line-height:1.3}
+.sheet .sub{margin:4px 0 8px;color:var(--muted);font-size:15px}
+.sheet .sub b{display:block;color:var(--ink);font-weight:600;font-size:17px}
+.sheet label{display:block;font-weight:600;font-size:15px;margin:12px 0 4px}
+.field{display:flex;gap:8px}
+.field input,.field textarea{flex:1;min-width:0;width:100%;padding:12px 14px;font:inherit;border:1.5px solid var(--rule);border-radius:12px;background:var(--paper);color:var(--ink)}
+.field input:focus,.field textarea:focus{border-color:var(--stamp);outline:none}
+.field textarea{min-height:64px;resize:vertical}
+.fmic{flex:none;width:50px;border:0;border-radius:12px;background:var(--stamp-wash);color:var(--stamp);display:grid;place-items:center}
+.fmic svg{width:22px;height:22px}
+.fmic.listening{animation:ripple 1.2s ease-out infinite}
+.err{color:var(--err);font-size:14px;min-height:20px;margin-top:8px}
+.row{display:flex;gap:10px;margin-top:10px}
+.row .btn{flex:1}
+.row .btn.soft{flex:0 0 auto}
+.privacy{font-size:13px;color:var(--muted);margin:12px 0 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="20" cy="20" r="13.5" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="2 2.4"/><text x="20" y="24.5" text-anchor="middle" font-family="Mukta,Arial,sans-serif" font-weight="700" font-size="12" fill="currentColor">UM</text></svg>
+      <span id="bizName">Umar Multiservices</span>
+    </div>
+    <div class="langs" role="group" aria-label="भाषा / Language">
+      <button data-lang="mr" aria-pressed="true">मराठी</button>
+      <button data-lang="hi" aria-pressed="false">हिंदी</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <div>
+      <h1 data-t="h1"></h1>
+      <p class="lede" data-t="lede"></p>
+    </div>
+    <div class="voice" id="voiceBlock">
+      <button class="stampmic" id="micBtn">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <defs><path id="ringPath" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
+          <circle cx="100" cy="100" r="95" fill="var(--sheet)" stroke="currentColor" stroke-width="5"/>
+          <g class="ring"><text font-family="Mukta,sans-serif" font-size="16" font-weight="600" fill="currentColor"><textPath href="#ringPath" id="ringText"></textPath></text></g>
+          <circle cx="100" cy="100" r="58" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 5"/>
+          <circle class="disc" cx="100" cy="100" r="50"/>
+          <rect x="88" y="72" width="24" height="40" rx="12" fill="currentColor"/>
+          <path d="M77 100a23 23 0 0 0 46 0M100 123v10M88 133h24" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="voice-copy">
+        <b data-t="caption"></b>
+        <span data-t="captionEg"></span>
+        <button class="listen" id="introBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg><span data-t="listen"></span></button>
+      </div>
+    </div>
+  </header>
+  <div class="status" id="status" aria-live="polite"></div>
+
+  <main>
+    <div class="finder">
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+        <input id="q" type="search" data-tph="searchPh" autocomplete="off">
+      </div>
+      <div class="chips" id="chips" role="group"></div>
+    </div>
+    <div class="list" id="list"></div>
+
+    <h2 class="section-title" data-t="how"></h2>
+    <ol class="steps">
+      <li><b data-t="s1b"></b><span data-t="s1"></span></li>
+      <li><b data-t="s2b"></b><span data-t="s2"></span></li>
+      <li><b data-t="s3b"></b><span data-t="s3"></span></li>
+      <li><b data-t="s4b"></b><span data-t="s4"></span></li>
+    </ol>
+  </main>
+
+  <footer>
+    <p data-t="footer"></p>
+    <p class="contact" id="contactLine"></p>
+  </footer>
+  <div class="spacer"></div>
+</div>
+
+<div class="dock" id="dock">
+  <button class="btn" id="dockMic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg><span data-t="dockMic"></span></button>
+  <button class="btn wa" id="dockWa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z"/></svg><span data-t="waChat"></span></button>
+</div>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet">
+    <h3 id="sheetTitle" data-t="sheetTitle"></h3>
+    <p class="sub" id="sheetSub"></p>
+    <label for="fName" data-t="lName"></label>
+    <div class="field"><input id="fName" autocomplete="name"><button class="fmic" data-for="fName"></button></div>
+    <label for="fPhone" data-t="lPhone"></label>
+    <div class="field"><input id="fPhone" inputmode="numeric" maxlength="10" autocomplete="tel" data-tph="phonePh"><button class="fmic" data-for="fPhone"></button></div>
+    <label for="fCity" data-t="lCity"></label>
+    <div class="field"><input id="fCity" autocomplete="address-level2"><button class="fmic" data-for="fCity"></button></div>
+    <label for="fNote" data-t="lNote"></label>
+    <div class="field"><textarea id="fNote" data-tph="notePh"></textarea><button class="fmic" data-for="fNote"></button></div>
+    <div class="err" id="fErr" role="alert"></div>
+    <div class="row">
+      <button class="btn soft" id="cancel" data-t="back"></button>
+      <button class="btn wa" id="send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z"/></svg><span data-t="send"></span></button>
+    </div>
+    <p class="privacy" data-t="privacy"></p>
+  </div>
+</div>
+
+<script>
+/* ===== Settings ===== */
+const SETTINGS = { businessName: "Umar Multiservices", whatsapp: "918055505254", address: "" };
+
+const T = {
+mr:{
+  code:"mr-IN", to:" ते ", or:" किंवा ",
+  h1:"सरकारी कागदपत्रांचे काम, रांगेशिवाय",
+  lede:"पॅन कार्ड, दाखले, सरकारी योजना — फॉर्म भरणे आणि ऑनलाइन अर्ज आम्ही करतो. तुम्ही फक्त कागदपत्रांचे फोटो WhatsApp वर पाठवा.",
+  ring:"उमर मल्टीसर्विसेज ✦ दाबा आणि बोला ✦",
+  micLabel:"बोलून सेवा शोधा",
+  caption:"हे बटण दाबा आणि सेवेचे नाव बोला", captionEg:"उदा. “पॅन कार्ड” किंवा “उत्पन्नाचा दाखला”",
+  listen:"ऐका", dockMic:"बोला", waChat:"WhatsApp वर बोला",
+  hello:"नमस्कार, मला सेवेबद्दल माहिती हवी आहे.",
+  searchPh:"सेवा शोधा — पॅन, दाखला, पासपोर्ट…",
+  chips:{all:"सर्व", id:"ओळखपत्र", cert:"दाखले", scheme:"सरकारी योजना", other:"इतर सेवा"},
+  how:"हे कसे काम करते",
+  s1b:"सेवा निवडा आणि विनंती पाठवा", s1:"नाव आणि मोबाइल नंबर टाका, विनंती WhatsApp वर पोहोचेल.",
+  s2b:"कागदपत्रांचे फोटो पाठवा", s2:"ॲपमधील यादीप्रमाणे कागदपत्रांचे फोटो WhatsApp वर पाठवा. एकूण फी आम्ही कळवू.",
+  s3b:"आम्ही अर्ज करतो", s3:"अर्ज क्रमांक आणि पावती तुम्हाला WhatsApp वर मिळेल.",
+  s4b:"स्टेटसची माहिती मिळवा", s4:"काम पूर्ण होईपर्यंत आम्ही तुम्हाला माहिती देत राहू.",
+  footer:"<b>महत्त्वाची सूचना:</b> हे एक खाजगी सेवा केंद्र आहे, सरकारी वेबसाइट नाही. सरकारी फी वेगळी लागते; वर दिलेली रक्कम फक्त आमचे सेवा शुल्क आहे. मंजुरी आणि लागणारा वेळ संबंधित विभागावर अवलंबून असतो. आवश्यक कागदपत्रे प्रत्येक राज्यात थोडी वेगळी असू शकतात.",
+  sheetTitle:"विनंती पाठवा", lName:"तुमचे नाव", lPhone:"मोबाइल नंबर", lCity:"शहर / जिल्हा",
+  lNote:"आणखी काही सांगायचे आहे? (ऐच्छिक)", phonePh:"10 अंकी नंबर", notePh:"उदा. नावाचे स्पेलिंग दुरुस्त करायचे आहे",
+  back:"मागे", send:"WhatsApp वर पाठवा", micField:"बोलून भरा",
+  privacy:"आधार किंवा पॅन नंबर इथे लिहू नका. कागदपत्रे फक्त WhatsApp वर थेट पाठवा.",
+  empty:"ही सेवा यादीत नाही. WhatsApp वर विचारा — बहुतेक सरकारी कामे आम्ही करतो.",
+  timeL:"लागणारा वेळ", docsL:"लागणारी कागदपत्रे", req:"विनंती पाठवा", svcListen:"ऐका",
+  feeVar:"कामानुसार", feeNote:"सेवा शुल्क", feeSub:(f)=>`सेवा शुल्क ${f} + सरकारी फी`,
+  eName:"तुमचे नाव लिहा.", ePhone:"10 अंकी मोबाइल नंबर लिहा, जो 6, 7, 8 किंवा 9 ने सुरू होतो.", eNum:"WhatsApp नंबर सेट केलेला नाही. केंद्राशी थेट संपर्क साधा.",
+  msg:(s,n,p,c,note)=>`नमस्कार, मला ही सेवा हवी आहे:\n\n*${s}*\nनाव: ${n}\nमोबाइल: ${p}`+(c?`\nशहर: ${c}`:"")+(note?`\nटीप: ${note}`:"")+`\n\nॲपमधील यादीप्रमाणे कागदपत्रांचे फोटो पाठवत आहे.`,
+  listening:"ऐकत आहे… बोला", notHeard:"आवाज ऐकू आला नाही. पुन्हा बटण दाबा आणि बोला.",
+  notMatched:"ही सेवा समजली नाही. पुन्हा सेवेचे नाव बोला, उदाहरणार्थ पॅन कार्ड.",
+  micDenied:"माईक बंद आहे. ब्राउझरच्या सेटिंगमध्ये माईकची परवानगी द्या.",
+  noMic:"या ब्राउझरमध्ये माईक चालत नाही. लिंक Chrome मध्ये उघडा.",
+  heard:(t)=>`तुम्ही बोललात: “${t}”`,
+  multi:(names)=>`या सेवा मिळाल्या: ${names}. हवी असलेली सेवा दाबा.`, showAll:"सर्व सेवा दाखवा",
+  intro:"नमस्कार. उमर मल्टीसर्विसेज मध्ये आपले स्वागत आहे. मोठे गोल बटण दाबा आणि तुम्हाला हवी असलेली सेवा बोला, उदाहरणार्थ पॅन कार्ड. किंवा यादीतील कोणत्याही सेवेवर दाबा आणि ऐका बटण दाबा.",
+  svcSay:(n,fee,time,docs)=>`${n}. सेवा शुल्क ${fee}. लागणारा वेळ ${time}. लागणारी कागदपत्रे: ${docs}. विनंती पाठवण्यासाठी, विनंती पाठवा हे बटण दाबा.`,
+  feeSay:(f)=>f==null?"कामानुसार":`${f} रुपये`,
+  formSay:"तुमचे नाव, मोबाइल नंबर आणि शहर भरा. लिहिता येत नसेल तर प्रत्येक जागेसमोरील माईक दाबून बोला. शेवटी WhatsApp वर पाठवा हे बटण दाबा."
+},
+hi:{
+  code:"hi-IN", to:" से ", or:" या ",
+  h1:"सरकारी दस्तावेज़ों का काम, बिना लाइन के",
+  lede:"पैन कार्ड, प्रमाण पत्र, सरकारी योजनाएँ — फ़ॉर्म भरना और ऑनलाइन आवेदन हम करते हैं। आप बस दस्तावेज़ों की फ़ोटो WhatsApp पर भेजिए।",
+  ring:"उमर मल्टीसर्विसेज ✦ दबाएँ और बोलें ✦",
+  micLabel:"बोलकर सेवा खोजें",
+  caption:"यह बटन दबाएँ और सेवा का नाम बोलें", captionEg:"जैसे “पैन कार्ड” या “आय प्रमाण पत्र”",
+  listen:"सुनें", dockMic:"बोलें", waChat:"WhatsApp पर बात करें",
+  hello:"नमस्ते, मुझे सेवा के बारे में जानकारी चाहिए।",
+  searchPh:"सेवा खोजें — पैन, प्रमाण पत्र, पासपोर्ट…",
+  chips:{all:"सभी", id:"पहचान पत्र", cert:"प्रमाण पत्र", scheme:"सरकारी योजना", other:"अन्य सेवाएँ"},
+  how:"कैसे काम करता है",
+  s1b:"सेवा चुनें और अनुरोध भेजें", s1:"नाम और मोबाइल नंबर डालें, अनुरोध WhatsApp पर पहुँच जाएगा।",
+  s2b:"दस्तावेज़ों की फ़ोटो भेजें", s2:"ऐप में दी गई सूची के अनुसार दस्तावेज़ों की फ़ोटो WhatsApp पर भेजें। कुल फ़ीस हम बताएँगे।",
+  s3b:"हम आवेदन करते हैं", s3:"आवेदन संख्या और रसीद आपको WhatsApp पर मिल जाएगी।",
+  s4b:"स्टेटस की जानकारी पाएँ", s4:"काम पूरा होने तक हम आपको जानकारी देते रहेंगे।",
+  footer:"<b>ज़रूरी सूचना:</b> यह एक निजी सेवा केंद्र है, सरकारी वेबसाइट नहीं। सरकारी फ़ीस अलग से लगती है; ऊपर दी गई राशि सिर्फ़ हमारा सेवा शुल्क है। मंज़ूरी और समय संबंधित विभाग पर निर्भर करता है। ज़रूरी दस्तावेज़ हर राज्य में थोड़े अलग हो सकते हैं।",
+  sheetTitle:"अनुरोध भेजें", lName:"आपका नाम", lPhone:"मोबाइल नंबर", lCity:"शहर / ज़िला",
+  lNote:"कुछ और बताना है? (वैकल्पिक)", phonePh:"10 अंकों का नंबर", notePh:"जैसे: नाम की स्पेलिंग ठीक करवानी है",
+  back:"वापस", send:"WhatsApp पर भेजें", micField:"बोलकर भरें",
+  privacy:"आधार या पैन नंबर यहाँ न लिखें। दस्तावेज़ सिर्फ़ WhatsApp पर सीधे भेजें।",
+  empty:"यह सेवा सूची में नहीं है। WhatsApp पर पूछिए — ज़्यादातर सरकारी काम हम करते हैं।",
+  timeL:"लगने वाला समय", docsL:"ज़रूरी दस्तावेज़", req:"अनुरोध भेजें", svcListen:"सुनें",
+  feeVar:"काम के अनुसार", feeNote:"सेवा शुल्क", feeSub:(f)=>`सेवा शुल्क ${f} + सरकारी फ़ीस`,
+  eName:"अपना नाम लिखिए।", ePhone:"10 अंकों का मोबाइल नंबर लिखिए, जो 6, 7, 8 या 9 से शुरू हो।", eNum:"WhatsApp नंबर सेट नहीं है। केंद्र से सीधे संपर्क करें।",
+  msg:(s,n,p,c,note)=>`नमस्ते, मुझे यह सेवा चाहिए:\n\n*${s}*\nनाम: ${n}\nमोबाइल: ${p}`+(c?`\nशहर: ${c}`:"")+(note?`\nनोट: ${note}`:"")+`\n\nऐप में दी गई सूची के अनुसार दस्तावेज़ों की फ़ोटो भेज रहा/रही हूँ।`,
+  listening:"सुन रहा हूँ… बोलिए", notHeard:"आवाज़ सुनाई नहीं दी. फिर से बटन दबाकर बोलिए.",
+  notMatched:"यह सेवा समझ नहीं आई. फिर से सेवा का नाम बोलिए, जैसे पैन कार्ड.",
+  micDenied:"माइक बंद है. ब्राउज़र की सेटिंग में माइक की अनुमति दें.",
+  noMic:"इस ब्राउज़र में माइक नहीं चलता. लिंक Chrome में खोलें.",
+  heard:(t)=>`आपने कहा: “${t}”`,
+  multi:(names)=>`ये सेवाएँ मिलीं: ${names}. अपनी सेवा पर दबाएँ.`, showAll:"सभी सेवाएँ दिखाएँ",
+  intro:"नमस्ते. उमर मल्टीसर्विसेज में आपका स्वागत है. बड़ा गोल बटन दबाएँ और अपनी ज़रूरत की सेवा बोलें, जैसे पैन कार्ड. या सूची में किसी भी सेवा पर दबाएँ और सुनें बटन दबाएँ.",
+  svcSay:(n,fee,time,docs)=>`${n}. सेवा शुल्क ${fee}. लगने वाला समय ${time}. ज़रूरी दस्तावेज़: ${docs}. अनुरोध भेजने के लिए, अनुरोध भेजें बटन दबाएँ.`,
+  feeSay:(f)=>f==null?"काम के अनुसार":`${f} रुपये`,
+  formSay:"अपना नाम, मोबाइल नंबर और शहर भरें. लिख नहीं सकते तो हर खाने के सामने वाला माइक दबाकर बोलें. आख़िर में WhatsApp पर भेजें बटन दबाएँ."
+}};
+
+const ICON = {
+  id:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2.2"/><path d="M5.8 16.2c.7-1.5 1.9-2.3 3.2-2.3s2.5.8 3.2 2.3M14.5 10h4M14.5 13.5h3"/></svg>',
+  cert:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8.5L19 7.5V21H6z"/><path d="M14.5 3v4.5H19"/><circle cx="12.5" cy="13" r="2.6"/><path d="M11 15.2 10.4 19l2.1-1 2.1 1-.6-3.8"/></svg>',
+  scheme:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 18 0z"/><path d="M12 12v6.5a2 2 0 0 0 4 0"/></svg>',
+  other:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><circle cx="12" cy="10.5" r="3.5"/><path d="M8.5 10.5h7M12 7c1.3 1 1.3 6 0 7M12 7c-1.3 1-1.3 6 0 7M9.5 17.5h5"/></svg>'
+};
+const MIC_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>';
+const CHECK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const SPEAK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/></svg>';
+const CHEV_SVG = '<svg class="chev" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" style="display:inline;vertical-align:-2px;transition:transform .2s"><path d="m6 9 6 6 6-6"/></svg>';
+
+const D = ["दाखला","दाखले","प्रमाणपत्र","प्रमाण","सर्टिफिकेट","certificate"];
+const NEW = ["नवीन","नवे","नया","नई","new"];
+const FIX = ["दुरुस्ती","दुरुस्त","सुधार","correction","चूक","गलती","बदल","बदलणे","बदलना"];
+const PAN = ["pan","pancard","पॅन","पैन","पेन","पॅनकार्ड","पैनकार्ड"];
+const SERVICES = [
+ {cat:"id",fee:250,kw:PAN,kw2:NEW,
+  mr:{name:"पॅन कार्ड — नवीन",time:"7–15 दिवस",docs:["आधार कार्ड","पासपोर्ट साइज फोटो","सही"]},
+  hi:{name:"पैन कार्ड — नया",time:"7–15 दिन",docs:["आधार कार्ड","पासपोर्ट साइज़ फ़ोटो","हस्ताक्षर"]}},
+ {cat:"id",fee:250,kw:PAN,kw2:FIX,
+  mr:{name:"पॅन कार्ड — दुरुस्ती",time:"7–15 दिवस",docs:["जुने पॅन कार्ड","आधार कार्ड","योग्य माहितीचा पुरावा"]},
+  hi:{name:"पैन कार्ड — सुधार",time:"7–15 दिन",docs:["पुराना पैन कार्ड","आधार कार्ड","सही जानकारी का प्रमाण"]}},
+ {cat:"id",fee:100,kw:["voter","वोटर","व्होटर","मतदार","मतदान","इलेक्शन","election"],kw2:[],
+  mr:{name:"मतदार ओळखपत्र — नवीन / दुरुस्ती",time:"15–30 दिवस",docs:["आधार कार्ड","पासपोर्ट साइज फोटो","पत्त्याचा पुरावा","वयाचा पुरावा"]},
+  hi:{name:"वोटर आईडी — नया / सुधार",time:"15–30 दिन",docs:["आधार कार्ड","पासपोर्ट साइज़ फ़ोटो","पते का प्रमाण","उम्र का प्रमाण"]}},
+ {cat:"cert",fee:200,kw:["income","इनकम","इन्कम","उत्पन्न","आय","आमदनी"],kw2:D,
+  mr:{name:"उत्पन्नाचा दाखला",time:"7–21 दिवस",docs:["आधार कार्ड","रेशन कार्ड","स्वयंघोषणापत्र / पगार स्लिप","पासपोर्ट साइज फोटो"]},
+  hi:{name:"आय प्रमाण पत्र",time:"7–21 दिन",docs:["आधार कार्ड","राशन कार्ड","स्व-घोषणा पत्र / सैलरी स्लिप","पासपोर्ट साइज़ फ़ोटो"]}},
+ {cat:"cert",fee:200,kw:["caste","कास्ट","जात","जाती","जाति"],kw2:D,
+  mr:{name:"जातीचा दाखला",time:"7–30 दिवस",docs:["आधार कार्ड","रेशन कार्ड","वडिलांचा जातीचा दाखला (असल्यास)","पासपोर्ट साइज फोटो"]},
+  hi:{name:"जाति प्रमाण पत्र",time:"7–30 दिन",docs:["आधार कार्ड","राशन कार्ड","पिता का जाति प्रमाण पत्र (अगर हो)","पासपोर्ट साइज़ फ़ोटो"]}},
+ {cat:"cert",fee:200,kw:["domicile","डोमिसाइल","डोमासाईल","अधिवास","रहिवासी","रहिवास","निवास"],kw2:D,
+  mr:{name:"अधिवास / रहिवासी दाखला",time:"7–21 दिवस",docs:["आधार कार्ड","रेशन कार्ड किंवा वीज बिल","पासपोर्ट साइज फोटो"]},
+  hi:{name:"निवास प्रमाण पत्र",time:"7–21 दिन",docs:["आधार कार्ड","राशन कार्ड या बिजली बिल","पासपोर्ट साइज़ फ़ोटो"]}},
+ {cat:"cert",fee:200,kw:["birth","बर्थ","जन्म"],kw2:D,
+  mr:{name:"जन्म दाखला",time:"7–21 दिवस",docs:["रुग्णालयाची डिस्चार्ज पावती","आई-वडिलांचे आधार कार्ड"]},
+  hi:{name:"जन्म प्रमाण पत्र",time:"7–21 दिन",docs:["अस्पताल की डिस्चार्ज पर्ची","माता-पिता का आधार कार्ड"]}},
+ {cat:"scheme",fee:null,kw:["ration","रेशन","राशन"],kw2:[],
+  mr:{name:"रेशन कार्ड — नवीन / नाव जोडणे",time:"15–30 दिवस",docs:["कुटुंबातील सर्व सदस्यांचे आधार","पत्त्याचा पुरावा","उत्पन्नाचा दाखला","फोटो"]},
+  hi:{name:"राशन कार्ड — नया / नाम जोड़ना",time:"15–30 दिन",docs:["परिवार के सभी सदस्यों का आधार","पते का प्रमाण","आय प्रमाण पत्र","फ़ोटो"]}},
+ {cat:"scheme",fee:100,kw:["ayushman","आयुष्मान","आयुष्यमान","आयुषमान"],kw2:[],
+  mr:{name:"आयुष्मान कार्ड",time:"काही दिवस",docs:["आधार कार्ड","रेशन कार्ड","आधारशी जोडलेला मोबाइल नंबर"]},
+  hi:{name:"आयुष्मान कार्ड",time:"कुछ दिन",docs:["आधार कार्ड","राशन कार्ड","आधार से जुड़ा मोबाइल नंबर"]}},
+ {cat:"scheme",fee:100,kw:["shram","eshram","श्रम","ईश्रम"],kw2:[],
+  mr:{name:"ई-श्रम कार्ड",time:"त्याच दिवशी",docs:["आधार कार्ड","आधारशी जोडलेला मोबाइल नंबर","बँक पासबुक"]},
+  hi:{name:"ई-श्रम कार्ड",time:"उसी दिन",docs:["आधार कार्ड","आधार से जुड़ा मोबाइल नंबर","बैंक पासबुक"]}},
+ {cat:"other",fee:2500,kw:["passport","पासपोर्ट"],kw2:[],
+  mr:{name:"पासपोर्ट — ऑनलाइन अर्ज",time:"अपॉइंटमेंटनुसार",docs:["आधार कार्ड","जन्मतारखेचा पुरावा","पत्त्याचा पुरावा"]},
+  hi:{name:"पासपोर्ट — ऑनलाइन आवेदन",time:"अपॉइंटमेंट के अनुसार",docs:["आधार कार्ड","जन्मतिथि का प्रमाण","पते का प्रमाण"]}},
+ {cat:"other",fee:100,kw:["scholarship","स्कॉलरशिप","स्कॉलरशीप","स्कॉलर","शिष्यवृत्ती","शिष्यवृत्ति","छात्रवृत्ति"],kw2:[],
+  mr:{name:"शिष्यवृत्ती फॉर्म",time:"शेवटच्या तारखेपूर्वी",docs:["आधार कार्ड","मार्कशीट","उत्पन्नाचा दाखला","बँक पासबुक","फी पावती"]},
+  hi:{name:"स्कॉलरशिप फ़ॉर्म",time:"अंतिम तारीख़ से पहले",docs:["आधार कार्ड","मार्कशीट","आय प्रमाण पत्र","बैंक पासबुक","फ़ीस की रसीद"]}}
+];
+const EXACT = new Set(["आय","जात","pan"]);
+
+/* ===== helpers ===== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const devDigits = s => s.replace(/[०-९]/g, d => "०१२३४५६७८९".indexOf(d));
+let lang = "mr", current = null, voiceMode = false, idFilter = null, catFilter = "all";
+try { const s = localStorage.getItem("lang"); if (s === "hi" || s === "mr") lang = s; } catch(e){}
+const L = () => T[lang];
+const feeText = s => s.fee == null ? L().feeVar : "₹" + s.fee;
+const waLink = text => `https://wa.me/${SETTINGS.whatsapp}?text=${encodeURIComponent(text)}`;
+
+/* ===== speech output ===== */
+const TTS = "speechSynthesis" in window;
+function pickVoice(){
+  const vs = speechSynthesis.getVoices();
+  const m = c => vs.find(v => v.lang.toLowerCase().replace("_","-").startsWith(c));
+  return m(lang) || (lang === "mr" ? m("hi") : null);
+}
+if (TTS){ speechSynthesis.getVoices(); speechSynthesis.onvoiceschanged = () => {}; }
+function speak(text){
+  if (!TTS) return;
+  speechSynthesis.cancel();
+  const v = pickVoice();
+  text.split(/[.।]\s*/).map(s => s.trim()).filter(Boolean).forEach(p => {
+    const u = new SpeechSynthesisUtterance(p);
+    u.lang = L().code; if (v) u.voice = v; u.rate = 0.9;
+    speechSynthesis.speak(u);
+  });
+}
+const sayClean = s => s.replace(/\s*\/\s*/g, L().or).replace(/—/g, ",").replace(/[()]/g, "").replace(/–/g, L().to);
+function sayService(s){
+  const d = s[lang];
+  speak(sayClean(L().svcSay(d.name, L().feeSay(s.fee), d.time, d.docs.join(", "))));
+}
+
+/* ===== speech input ===== */
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+function setStatus(html){ $("status").innerHTML = html; }
+function listen(btn, onText){
+  voiceMode = true;
+  if (!SR){ setStatus(esc(L().noMic)); speak(L().noMic); return; }
+  if (TTS) speechSynthesis.cancel();
+  const r = new SR();
+  r.lang = L().code; r.interimResults = false; r.maxAlternatives = 3;
+  btn.classList.add("listening");
+  setStatus(esc(L().listening));
+  let got = false;
+  r.onresult = e => { got = true; onText([...e.results[0]].map(a => a.transcript)); };
+  r.onerror = e => {
+    got = true;
+    const m = (e.error === "not-allowed" || e.error === "service-not-allowed") ? L().micDenied : L().notHeard;
+    setStatus(esc(m)); speak(m);
+  };
+  r.onend = () => { btn.classList.remove("listening"); if (!got) setStatus(esc(L().notHeard)); };
+  try { r.start(); } catch(e){ btn.classList.remove("listening"); }
+}
+function scoreService(s, text){
+  const toks = text.toLowerCase().replace(/[.,।?!—–\-]/g, " ").split(/\s+/).filter(Boolean);
+  const hit = kw => kw.includes(" ") ? text.toLowerCase().includes(kw) : toks.some(t => EXACT.has(kw) ? t === kw : t.startsWith(kw));
+  return (s.kw.some(hit) ? 2 : 0) + (s.kw2.some(hit) ? 1 : 0);
+}
+function voiceSearch(alts){
+  let best = 0, cands = [];
+  SERVICES.forEach((s, i) => {
+    const sc = Math.max(...alts.map(a => scoreService(s, a)));
+    if (sc > best){ best = sc; cands = [i]; } else if (sc === best && sc > 0) cands.push(i);
+  });
+  const heard = esc(L().heard(alts[0]));
+  if (!best){ setStatus(heard + "<br>" + esc(L().notMatched)); speak(L().notMatched); return; }
+  catFilter = "all"; $("q").value = "";
+  if (cands.length === 1){
+    idFilter = null; renderChips(); render();
+    setStatus(heard);
+    openCard(cands[0], true);
+  } else {
+    idFilter = new Set(cands); renderChips(); render();
+    setStatus(heard + `<button id="showAll">${esc(L().showAll)}</button>`);
+    speak(sayClean(L().multi(cands.map(i => SERVICES[i][lang].name).join(", "))));
+    $("list").scrollIntoView({behavior:"smooth", block:"start"});
+  }
+}
+
+/* ===== UI ===== */
+function renderChips(){
+  $("chips").innerHTML = Object.entries(L().chips).map(([k, v]) =>
+    `<button data-cat="${k}" aria-pressed="${catFilter === k}">${esc(v)}</button>`).join("");
+}
+function render(){
+  const f = $("q").value.trim().toLowerCase();
+  const items = SERVICES.map((s, i) => ({s, i})).filter(({s, i}) => {
+    if (idFilter && !idFilter.has(i)) return false;
+    if (catFilter !== "all" && s.cat !== catFilter) return false;
+    if (!f) return true;
+    const hay = [s.mr.name, s.hi.name, T.mr.chips[s.cat], T.hi.chips[s.cat], ...s.mr.docs, ...s.kw].join(" ").toLowerCase();
+    return hay.includes(f);
+  });
+  if (!items.length){
+    $("list").innerHTML = `<div class="empty">${esc(L().empty)}<br><a class="btn wa" href="${waLink(L().hello)}" target="_blank" rel="noopener">${esc(L().waChat)}</a></div>`;
+    return;
+  }
+  $("list").innerHTML = items.map(({s, i}) => { const d = s[lang]; return `
+    <div class="svc" data-i="${i}">
+      <button class="svc-head" aria-expanded="false">
+        <span class="tile">${ICON[s.cat]}</span>
+        <span><span class="svc-name">${esc(d.name)}</span><span class="svc-cat">${esc(L().chips[s.cat])} ${CHEV_SVG}</span></span>
+        <span class="fee">${esc(feeText(s))}<small>${esc(L().feeNote)}</small></span>
+      </button>
+      <div class="svc-body">
+        <p class="meta">${esc(L().timeL)}: ${esc(d.time)}</p>
+        <ul class="docs"><p>${esc(L().docsL)}</p>${d.docs.map(x => `<li>${CHECK_SVG}<span>${esc(x)}</span></li>`).join("")}</ul>
+        <div class="actions">
+          <button class="btn req">${esc(L().req)}</button>
+          ${TTS ? `<button class="btn soft say">${SPEAK_SVG}${esc(L().svcListen)}</button>` : ""}
+        </div>
+      </div>
+    </div>`; }).join("");
+}
+function applyLang(){
+  document.documentElement.lang = lang;
+  document.querySelectorAll("[data-t]").forEach(el => el.innerHTML = L()[el.dataset.t]);
+  document.querySelectorAll("[data-tph]").forEach(el => el.placeholder = L()[el.dataset.tph]);
+  document.querySelectorAll(".langs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === lang));
+  $("ringText").textContent = L().ring + " " + L().ring;
+  fitRing();
+  $("micBtn").setAttribute("aria-label", L().micLabel);
+  $("q").setAttribute("aria-label", L().searchPh);
+  document.querySelectorAll(".fmic").forEach(b => b.setAttribute("aria-label", L().micField));
+  setStatus("");
+  renderChips(); render();
+  if (current) $("sheetSub").innerHTML = `<b>${esc(current[lang].name)}</b>${esc(L().feeSub(feeText(current)))}`;
+}
+function fitRing(){
+  const t = $("ringText").parentNode;
+  t.setAttribute("font-size", "16");
+  try { const len = t.getComputedTextLength(); if (len > 0) t.setAttribute("font-size", (16 * 468 / len).toFixed(2)); } catch(e){}
+}
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitRing);
+function openCard(i, speakIt){
+  const card = document.querySelector(`.svc[data-i="${i}"]`); if (!card) return;
+  card.classList.add("open", "flash");
+  card.querySelector(".svc-head").setAttribute("aria-expanded", "true");
+  card.scrollIntoView({behavior:"smooth", block:"center"});
+  setTimeout(() => card.classList.remove("flash"), 1600);
+  if (speakIt) sayService(SERVICES[i]);
+}
+
+document.querySelectorAll(".langs button").forEach(b => b.onclick = () => {
+  lang = b.dataset.lang;
+  try { localStorage.setItem("lang", lang); } catch(e){}
+  if (TTS) speechSynthesis.cancel();
+  applyLang();
+});
+$("chips").addEventListener("click", e => {
+  const b = e.target.closest("button[data-cat]"); if (!b) return;
+  catFilter = b.dataset.cat; idFilter = null; setStatus("");
+  renderChips(); render();
+});
+$("list").addEventListener("click", e => {
+  const card = e.target.closest(".svc"); if (!card) return;
+  const s = SERVICES[card.dataset.i];
+  if (e.target.closest(".req")) return openSheet(s);
+  if (e.target.closest(".say")){ voiceMode = true; return sayService(s); }
+  if (e.target.closest(".svc-head")){
+    const open = card.classList.toggle("open");
+    card.querySelector(".svc-head").setAttribute("aria-expanded", open);
+    if (open && voiceMode) sayService(s);
+    else if (TTS) speechSynthesis.cancel();
+  }
+});
+$("status").addEventListener("click", e => {
+  if (e.target.id === "showAll"){ idFilter = null; render(); setStatus(""); }
+});
+$("q").addEventListener("input", () => { idFilter = null; if (catFilter !== "all"){ catFilter = "all"; renderChips(); } render(); });
+$("micBtn").onclick = () => listen($("micBtn"), voiceSearch);
+$("dockMic").onclick = () => listen($("dockMic"), voiceSearch);
+$("introBtn").onclick = () => { voiceMode = true; speak(L().intro); };
+$("dockWa").onclick = () => window.open(waLink(L().hello), "_blank", "noopener");
+if (!TTS) $("introBtn").hidden = true;
+
+/* dock appears once the big mic scrolls away */
+if ("IntersectionObserver" in window){
+  new IntersectionObserver(([en]) => $("dock").classList.toggle("show", !en.isIntersecting)).observe($("voiceBlock"));
+} else $("dock").classList.add("show");
+
+/* form */
+function openSheet(s){
+  current = s;
+  $("sheetSub").innerHTML = `<b>${esc(s[lang].name)}</b>${esc(L().feeSub(feeText(s)))}`;
+  $("fErr").textContent = "";
+  $("overlay").classList.add("show");
+  if (voiceMode) speak(L().formSay); else setTimeout(() => $("fName").focus(), 60);
+}
+function closeSheet(){ $("overlay").classList.remove("show"); if (TTS) speechSynthesis.cancel(); }
+$("cancel").onclick = closeSheet;
+$("overlay").addEventListener("click", e => { if (e.target.id === "overlay") closeSheet(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") closeSheet(); });
+document.querySelectorAll(".fmic").forEach(b => {
+  if (!SR){ b.hidden = true; return; }
+  b.innerHTML = MIC_SVG;
+  b.onclick = () => listen(b, alts => {
+    const t = alts[0].trim(), el = $(b.dataset.for);
+    if (b.dataset.for === "fPhone") el.value = devDigits(t).replace(/\D/g, "").slice(-10);
+    else if (b.dataset.for === "fNote") el.value = (el.value ? el.value + " " : "") + t;
+    else el.value = t;
+    setStatus("");
+  });
+});
+$("fPhone").addEventListener("input", e => { e.target.value = devDigits(e.target.value).replace(/\D/g, "").slice(0, 10); });
+$("send").onclick = () => {
+  const name = $("fName").value.trim(), phone = devDigits($("fPhone").value.trim()), city = $("fCity").value.trim(), note = $("fNote").value.trim();
+  const fail = m => { $("fErr").textContent = m; if (voiceMode) speak(m); };
+  if (!name) return fail(L().eName);
+  if (!/^[6-9]\d{9}$/.test(phone)) return fail(L().ePhone);
+  if (!SETTINGS.whatsapp) return fail(L().eNum);
+  window.open(waLink(L().msg(current[lang].name, name, phone, city, note)), "_blank", "noopener");
+  closeSheet();
+};
+
+/* init */
+$("bizName").textContent = SETTINGS.businessName;
+$("contactLine").textContent = [SETTINGS.address, SETTINGS.whatsapp ? "WhatsApp: +" + SETTINGS.whatsapp.replace(/^91/, "91 ") : ""].filter(Boolean).join("  |  ");
+applyLang();
+</script>
+</body>
+</html>
